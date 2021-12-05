@@ -13,6 +13,7 @@
    
   </head>
   <body>
+  @include('partials/navbar')
       <section class="Principal">
         <h1>Proyectos</h1>
       </section>
