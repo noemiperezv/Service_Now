@@ -1,0 +1,44 @@
+.card{
+    width: 1000px;
+    display: flex;
+    justify-content: space-between;
+    margin-left: 150px;
+    padding: 5px;
+    padding-right: 15px;
+    margin-bottom: 60px;
+    padding-bottom: 3%;
+}
+
+.boton{
+    padding-top: 200px;
+    width: 300px;
+}
+.Principal{
+    text-align: center;
+    color: white;
+    background: rgb(17, 17, 17);
+    padding-top: 4%;
+    padding-bottom: 4%;
+    margin-bottom: 2%;
+}
+.list-group-horizontal{
+    display: flex;
+    justify-content: space-between;
+    border: none !important;
+    padding-top: 1%;
+    padding-bottom: 1%;
+}
+.list-group-item{
+    border: none !important;
+}
+
+.table{
+    border: solid 1px gray;
+    margin: 5px;
+    border-radius: 20%;
+}
+
+#floatingTextarea2{
+    align-self: right !important;
+    margin-left: 10% !important;
+}
