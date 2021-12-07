@@ -4,17 +4,49 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Browser;
+use App\Models\Gasto;
+use App\Models\GastoMes;
 
 class InformeController extends Controller
 {
     //
-    public function Informe()
+    public function Informe(Request $request)
     {
-        $navegadores = Browser::all();
+        $informe = $request['informe'];
         $parametros = [];
-        foreach($navegadores as $navegador){
-            $parametros[]=['name'=>$navegador['navegador'], 'y'=> floatval($navegador['porcentaje'])];
+        $titulo = "Sin título";
+        if(!empty($informe)){
+            if($informe == 1){
+                $titulo = "Navegadores más utilizados en la empresa";
+                $navegadores = Browser::all();
+                foreach($navegadores as $navegador){
+                    $parametros[]=['name'=>$navegador['navegador'], 'y'=> floatval($navegador['porcentaje'])];
+                }
+            }else if($informe==2){
+                $titulo = "Principales gastos generados en la empresa";
+                $gastos = Gasto::all();
+                $total = 0;
+                foreach($gastos as $gasto){
+                    $total = $total + floatval($gasto['importe']);
+                }
+                foreach($gastos as $gasto){
+                    $porcentaje = (100 * floatval($gasto['importe']))/$total;
+                    $parametros[]=['name'=>$gasto['concepto'], 'y'=> floatval($gasto['importe'])];
+                }
+            }else if($informe == 3){
+                $titulo = "Gastos por mes";
+                $gastosmes = GastoMes::all();
+                $total = 0;
+                foreach($gastosmes as $gasto){
+                    $total = $total + floatval($gasto['importe']);
+                }
+                foreach($gastosmes as $gasto){
+                    $porcentaje = (100 * floatval($gasto['importe']))/$total;
+                    $parametros[]=['name'=>$gasto['mes'], 'y'=> floatval($gasto['importe'])];
+                }
+            }
         }
+        
         $pastel = new Pastel();
         $barras = new Barras();
         $data = json_encode($parametros);
@@ -26,7 +58,7 @@ class InformeController extends Controller
                 type: 'estilo'
             },
             title: {
-                text: 'Navegadores más utilizados en la empresa'
+                text: '$titulo'
             },
             tooltip: {
                 pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
@@ -153,4 +185,3 @@ class Barras implements InformeConnector
         return $contenido;
     }
 }
-

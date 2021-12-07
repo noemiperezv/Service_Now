@@ -17,3 +17,5 @@ Route::post('/EnvioProyecto', [App\Http\Controllers\UsuarioController::class,'En
 
 Route::get('/Informe', [App\Http\Controllers\InformeController::class,'Informe']);
 
+Route::post('/Informe', [App\Http\Controllers\InformeController::class,'Informe']);
+
